@@ -2,6 +2,7 @@ import random
 import tkinter as GUI
 from time import sleep
 from threading import Thread
+import os
 def tank_generator():
     global points
     points = 100
@@ -288,12 +289,13 @@ root.resizable(False, False) #one for each dimension
 root.configure(background = "purple") #configure is usable for all widgets
 
 
-stirrer_image = GUI.PhotoImage(file = "Desktop\Chemsynth\Stirrer.png")
-centrifuge_image = GUI.PhotoImage(file = "Desktop\Chemsynth\Centrifuge.png")
-replicator_image = GUI.PhotoImage(file = "Desktop\Chemsynth\Replicator.png")
-solvent_image = GUI.PhotoImage(file = "Desktop\Chemsynth\Solvent.png")
-catalyst_image = GUI.PhotoImage(file = "Desktop\Chemsynth\Catalyst.png")
-rainbow_image = GUI.PhotoImage(file = "Desktop\Chemsynth\Rainbow.png")
+current_dir = os.path.dirname(os.path.abspath(__file__))
+stirrer_image = GUI.PhotoImage(file = os.path.join(current_dir, "Stirrer.png"))
+centrifuge_image = GUI.PhotoImage(file = os.path.join(current_dir, "Centrifuge.png"))
+replicator_image = GUI.PhotoImage(file = os.path.join(current_dir, "Replicator.png"))
+solvent_image = GUI.PhotoImage(file = os.path.join(current_dir, "Solvent.png"))
+catalyst_image = GUI.PhotoImage(file = os.path.join(current_dir, "Catalyst.png"))
+rainbow_image = GUI.PhotoImage(file = os.path.join(current_dir, "Rainbow.png"))
 
 
 start_button = GUI.Button(root, text = "Play", command = tank_generator, font = ("Helvetica", 25)) #first argument is parent it belongs to - command is name of function WITHOUT ()
