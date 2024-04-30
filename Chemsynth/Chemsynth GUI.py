@@ -18,10 +18,14 @@ def tank_generator():
         tanks[i] = colors[random.randint(0,4)]
         tanks_required[i] = colors[random.randint(0,4)]
     start_button.destroy()
-    global game_running
-    game_running = True
-    Rainbow_Thread = Thread(target = rainbow_movement, args = (2,), daemon = True, name = "Rainbow Movement")
-    Rainbow_Thread.start()
+    global game_number
+    game_number = game_number + 1
+    if game_number % 2 == 0:
+        Rainbow_Thread1 = Thread(target = rainbow_movement1, args = (2,), daemon = True, name = "Rainbow Movement 1")
+        Rainbow_Thread1.start()
+    else:
+        Rainbow_Thread2 = Thread(target = rainbow_movement2, args = (2,), daemon = True, name = "Rainbow Movement 2")
+        Rainbow_Thread2.start()
     tank_screen() #puts the tanks on the screen
 
 def select_tool(current = None):
@@ -46,8 +50,9 @@ def use_tool(pos):
         except NameError: #in case no tool has been selected yet
             return
         
-def rainbow_movement(interval_seconds):
-    global rainbow1_pos, rainbow2_pos
+def rainbow_movement1(interval_seconds):
+    global rainbow1_pos, rainbow2_pos, game_running1
+    game_running1 = True
     n = 0
     possible_position = [1, 2, 3, 4, 5]
     rainbow1_pos = possible_position[n]
@@ -57,9 +62,9 @@ def rainbow_movement(interval_seconds):
     rainbow2 = GUI.Label(root, image = rainbow_image, background = "purple")
     rainbow2.place(x = n * 80 + 400, y = 180, width = 80, height = 20)
 
-    while game_running == True:
+    while game_running1 == True:
         sleep(interval_seconds)
-        if game_running == True:
+        if game_running1 == True:
             n =  n + 1
             if n == 5:
                 n = 0
@@ -68,10 +73,40 @@ def rainbow_movement(interval_seconds):
             rainbow1.place(x = n * 80, y = 180, width = 80, height = 20)
             rainbow2.place(x = n * 80 + 400, y = 180, width = 80, height = 20)
     
-    if game_running == False:
+    if game_running1 == False:
         rainbow1.destroy()
         rainbow2.destroy()
+        game_running1 = True
         return #closes thread I believe
+    
+def rainbow_movement2(interval_seconds):
+    global rainbow1_pos, rainbow2_pos, game_running2
+    game_running2 = True
+    n = 0
+    possible_position = [1, 2, 3, 4, 5]
+    rainbow1_pos = possible_position[n]
+    rainbow2_pos = rainbow1_pos + 5
+    rainbow1 = GUI.Label(root, image = rainbow_image, background = "purple")
+    rainbow1.place(x = n * 80, y = 180, width = 80, height = 20)
+    rainbow2 = GUI.Label(root, image = rainbow_image, background = "purple")
+    rainbow2.place(x = n * 80 + 400, y = 180, width = 80, height = 20)
+
+    while game_running2 == True:
+        sleep(interval_seconds)
+        if game_running2 == True:
+            n =  n + 1
+            if n == 5:
+                n = 0
+            rainbow1_pos = possible_position[n]
+            rainbow2_pos = rainbow1_pos + 5
+            rainbow1.place(x = n * 80, y = 180, width = 80, height = 20)
+            rainbow2.place(x = n * 80 + 400, y = 180, width = 80, height = 20)
+    
+    if game_running2 == False:
+        rainbow1.destroy()
+        rainbow2.destroy()
+        game_running2 = True
+        return #closes thread I believe  
 
 
 def stirrer(pos):
@@ -154,10 +189,13 @@ def catalyst(pos):
 def tank_screen():
     global points #i couldn't get it to recognize the value any other way
     global total_points
-    global game_running
+    global game_running1, game_running2, game_number
 
     if tanks == tanks_required:
-        game_running = False
+        if game_number % 2 == 0:    
+            game_running1 = False
+        else:
+            game_running2 = False
         for widget in root.winfo_children():
             widget.destroy() #win - clears screen for next screen
         global current_tool
@@ -302,4 +340,5 @@ start_button = GUI.Button(root, text = "Play", command = tank_generator, font = 
 start_button.configure(background = "cyan")
 start_button.place(x = 300, y = 225, width = 200, height = 50) #also possible to use pack() and grid()
 
+game_number = 1
 root.mainloop() #runs the window
