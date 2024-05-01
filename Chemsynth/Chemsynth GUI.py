@@ -225,67 +225,17 @@ def tank_screen():
 
         #tanks 1-10 as currently seen
         #pos doesn't start from 0 obviously (took some time to make it this way)
-        tank1 = GUI.Button(root, command = lambda: use_tool(1), background = tanks[0]) 
-        tank1.place(x = 0, y = 200, height = 80, width = 80)
-
-        tank2 = GUI.Button(root, command = lambda: use_tool(2), background = tanks[1])
-        tank2.place(x = 80, y = 200, height = 80, width = 80)
-
-        tank3 = GUI.Button(root, command = lambda: use_tool(3), background = tanks[2])
-        tank3.place(x = 160, y = 200, height = 80, width = 80)
-
-        tank4 = GUI.Button(root, command = lambda: use_tool(4), background = tanks[3])
-        tank4.place(x = 240, y = 200, height = 80, width = 80)
-
-        tank5 = GUI.Button(root, command = lambda: use_tool(5), background = tanks[4])
-        tank5.place(x = 320, y = 200, height = 80, width = 80)
-
-        tank6 = GUI.Button(root, command = lambda: use_tool(6), background = tanks[5])
-        tank6.place(x = 400, y = 200, height = 80, width = 80)
-
-        tank7 = GUI.Button(root, command = lambda: use_tool(7), background = tanks[6])
-        tank7.place(x = 480, y = 200, height = 80, width = 80)
-
-        tank8 = GUI.Button(root, command = lambda: use_tool(8), background = tanks[7])
-        tank8.place(x = 560, y = 200, height = 80, width = 80)
-
-        tank9 = GUI.Button(root, command = lambda: use_tool(9), background = tanks[8])
-        tank9.place(x = 640, y = 200, height = 80, width = 80)
-
-        tank10 = GUI.Button(root, command = lambda: use_tool(10), background = tanks[9])
-        tank10.place(x = 720, y = 200, height = 80, width = 80)
+        tank_buttons = []
+        for i in range(10):
+            tank_buttons.append(GUI.Button(root, command = lambda pos = i + 1: use_tool(pos), background = tanks[i]))
+            tank_buttons[i].place(x = 80 * i, y = 200, height = 80, width = 80)
 
         #tanks 1-10 as actually required
-        req1 = GUI.Label(root, background = tanks_required[0])
-        req1.place(x = 25, y = 280, height = 20, width = 30)
-
-        req2 = GUI.Label(root, background = tanks_required[1])
-        req2.place(x = 105, y = 280, height = 20, width = 30)
-
-        req3 = GUI.Label(root, background = tanks_required[2])
-        req3.place(x = 185, y = 280, height = 20, width = 30)
-
-        req4 = GUI.Label(root, background = tanks_required[3])
-        req4.place(x = 265, y = 280, height = 20, width = 30)
-
-        req5 = GUI.Label(root, background = tanks_required[4])
-        req5.place(x = 345, y = 280, height = 20, width = 30)
-
-        req6 = GUI.Label(root, background = tanks_required[5])
-        req6.place(x = 425, y = 280, height = 20, width = 30)
-
-        req7 = GUI.Label(root, background = tanks_required[6])
-        req7.place(x = 505, y = 280, height = 20, width = 30)
-
-        req8 = GUI.Label(root, background = tanks_required[7])
-        req8.place(x = 585, y = 280, height = 20, width = 30)
-
-        req9 = GUI.Label(root, background = tanks_required[8])
-        req9.place(x = 665, y = 280, height = 20, width = 30)
-
-        req10 = GUI.Label(root, background = tanks_required[9])
-        req10.place(x = 745, y = 280, height = 20, width = 30)
-
+        req_labels = []
+        for i in range(10):
+            req_labels.append(GUI.Label(root, background = tanks_required[i]))
+            req_labels[i].place(x = 25 + 80 * i, y = 280, height = 20, width = 30)
+        
         #current score
         points_message = "Score: " + str(points)
         points_label = GUI.Label(root, text = points_message, font= ("Helvetica", 25), background = "purple")
