@@ -250,9 +250,9 @@ root.resizable(False, False) #one for each dimension
 root.configure(background = "purple") #configure is usable for all widgets
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-stirrer_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites\Stirrer.png"))
-centrifuge_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites\Centrifuge.png"))
-replicator_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites\Replicator.png"))
+stirrer_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites/Stirrer.png"))
+centrifuge_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites/Centrifuge.png"))
+replicator_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites/Replicator.png"))
 solvent_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites/Solvent.png"))
 catalyst_image = GUI.PhotoImage(file = os.path.join(current_dir, "ToolSprites/Catalyst.png"))
 rainbow_image = GUI.PhotoImage(file = os.path.join(current_dir, "Rainbow.png"))
